@@ -2,7 +2,9 @@ const express= require('express');
 const cors=require('cors');
 const env =require('dotenv') 
 const mongoose=require('mongoose')
-const adminRoutes=require('./src/Routes/adminRoutes')
+const adminRoutes=require('./src/Routes/admin-routes')
+const userRoutes=require('./src/Routes/user-routes')
+const moviesRoutes=require('./src/Routes/movies-route')
 const passport=require('passport')
 const jwt=require('jsonwebtoken')
 // const userRoutes=require('./src/Routes/user-routes')
@@ -22,21 +24,17 @@ const startConfig= async()=>{
 }
 
 const startServer=async()=>{
-    
     await startConfig();
-    
+
     console.log('initilizing DB');
     await mongoose.connect(connStr,{useNewUrlParser:true,useUnifiedTopology: true })
     .then(()=>{console.log('connected to mongoDB')})
     .catch((err)=>console.log(err));
-    mongoose.connection.on('error',(err)=>console.log(err.message))
-    app.post('/api/reg',(req,res)=>{
-        console.log(req.body);
-        res.send(req.body);
-    })
-    
+    mongoose.connection.on('error',(err)=>console.log(err.message))    
     const server =await app.listen(process.env.PORT)
     app.use('/api/admin',adminRoutes)
+    app.use('/api/user',userRoutes)
+    app.use('/api/movies',moviesRoutes)
     // app.use('/api/user',userRoutes)
     server.on('error',(err)=>console.log(err.message))
     

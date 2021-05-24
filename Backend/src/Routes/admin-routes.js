@@ -15,4 +15,7 @@ router.post('/register',adminRouteController.register)
 //login route
 //POST API
 router.post('/login',adminRouteController.login)
+
+//add movies route
+//POST API
 module.exports=router;

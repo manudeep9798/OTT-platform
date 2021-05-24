@@ -13,9 +13,25 @@ const user= new mongoose.Schema({
         type:String,
         required:true
     },
-    password:{
+    profilePic:{
         type:String,
-        required:true
+    },
+    plan:{
+        type:String,
+        default:'NAN'
+    },
+    likedVideos:{
+        type:Array
+    },
+    watchedVideos:{
+        type:Array
+    },
+    watchList:{
+        type:Array
+    },
+    loggedIn:{
+        type:Boolean,
+        default:false
     }
 
 
